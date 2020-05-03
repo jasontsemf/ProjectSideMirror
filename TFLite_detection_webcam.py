@@ -1,4 +1,3 @@
-\
 ######## Webcam Object Detection Using Tensorflow-trained Classifier #########
 #
 # Author: Evan Juras
@@ -24,6 +23,19 @@ import time
 from threading import Thread
 import importlib.util
 import math
+import RPi.GPIO as GPIO
+
+l_blue = 26
+l_yellow = 19
+r_blue = 23
+r_yellow = 24
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(l_blue, GPIO.OUT)
+GPIO.setup(l_yellow, GPIO.OUT)
+GPIO.setup(r_blue, GPIO.OUT)
+GPIO.setup(r_yellow, GPIO.OUT)
 
 PARTS = {
     0: 'NOSE',
@@ -113,15 +125,15 @@ class Person():
         return list(filter(lambda x: x is not None, limbs))
 
     def get_side(self):
-        lr = "middle"
         if(self.keypoints[0].get_confidence() > 0.7):
-            if(self.keypoints[0].point()[0] < 257/2):
+            if self.keypoints[0].point()[0] < (257/2) - 10:
                 lr = "right"
-            else:
+            elif self.keypoints[0].point()[0] > (257/2) + 10:
                 lr = "left"
+            else:
+                lr = "middle"
             return lr
         return
-            # print(self.keypoints[0].point()[0],self.keypoints[0].point()[1])
 
     def confidence(self):
         return np.mean([k.confidence for k in self.keypoints])
@@ -314,8 +326,25 @@ while True:
     print("-------")
     person = Person(heatmap, offset)
     # print(person.to_string())
-    print(person.get_side())
-    # Loop over all detections and draw detection box if confidence is above minimum threshold
+    side = person.get_side()
+    print(side)
+    if side == "left":
+        GPIO.output(l_blue, False)
+        GPIO.output(l_yellow, True)
+        GPIO.output(r_blue, True)
+        GPIO.output(r_yellow, False)
+    elif side == "right":
+        GPIO.output(l_blue, True)
+        GPIO.output(l_yellow, False)
+        GPIO.output(r_blue, False)
+        GPIO.output(r_yellow, True)
+    else:
+        GPIO.output(l_blue, True)
+        GPIO.output(l_yellow, False)
+        GPIO.output(r_blue, True)
+        GPIO.output(r_yellow, False)
+
+    #Loop over all detections and draw detection box if confidence is above minimum threshold
     # for i in range(len(scores)):
         # if ((boxes[i] > min_conf_threshold) and (boxes[i] <= 1.0)):
 
