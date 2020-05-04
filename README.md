@@ -9,7 +9,8 @@ Raspberry Pi Zero W on the side of a pair of glasses
 RGB leds on the corner of each side the glasses, behind the lenses, Camera pointing backward/outward
 
 ## Demo
-![Project SideMirror Demo](http://img.youtube.com/vi/FN6Ix4j6pyA/0.jpg)](http://www.youtube.com/watch?v=FN6Ix4j6pyA "Project SideMirror Demo")
+
+[![Project SideMirror Demo](http://img.youtube.com/vi/FN6Ix4j6pyA/0.jpg)](http://www.youtube.com/watch?v=FN6Ix4j6pyA "Project SideMirror Demo")
 
 ## Intro
 
