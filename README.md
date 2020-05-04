@@ -1,16 +1,19 @@
 # Project Side Mirror
 
+> Get to know what's happening behind you without turning your head around, with Project SideMirror.
+
 ![Project SideMirror Front](README/projectsidemirror_front.png)
 Raspberry Pi Zero W on the side of a pair of glasses
 
 ![Project SideMirror Rear](README/projectsidemirror_back.png)
 RGB leds on the corner of each side the glasses, behind the lenses, Camera pointing backward/outward
 
+## Demo
+![Project SideMirror Demo](http://img.youtube.com/vi/FN6Ix4j6pyA/0.jpg)](http://www.youtube.com/watch?v=FN6Ix4j6pyA "Project SideMirror Demo")
+
 ## Intro
 
 This project is the final assignment for the ITP class `Machine Learning for Physical Computing
-
-> Get to know what's happening behind you without turning your head around, with Project SideMirror.
 
 ## Project Abstract
 
