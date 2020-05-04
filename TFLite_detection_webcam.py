@@ -29,6 +29,8 @@ l_blue = 26
 l_yellow = 19
 r_blue = 23
 r_yellow = 24
+l_yellow_state = True
+r_yellow_state = True
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
@@ -134,6 +136,17 @@ class Person():
                 lr = "middle"
             return lr
         return
+
+    def is_raise_hand(self):
+        if self.keypoints[0].get_confidence() > 0.7:
+            if self.keypoints[9].get_confidence() > 0.6 and self.keypoints[9].point()[1] <= self.keypoints[0].point()[1]:
+                return "raise left" 
+            elif self.keypoints[10].get_confidence() > 0.6 and self.keypoints[10].point()[1] <= self.keypoints[0].point()[1]:
+                return "raise right"
+            else:
+                return False
+            return False
+        return False
 
     def confidence(self):
         return np.mean([k.confidence for k in self.keypoints])
@@ -327,15 +340,20 @@ while True:
     person = Person(heatmap, offset)
     # print(person.to_string())
     side = person.get_side()
-    print(side)
+    hand = person.is_raise_hand()
+    print("side: ", side, "raise hand: ", hand)
     if side == "left":
         GPIO.output(l_blue, False)
-        GPIO.output(l_yellow, True)
+        if hand != False:
+            l_yellow_state = not l_yellow_state 
+        GPIO.output(l_yellow, l_yellow_state)
         GPIO.output(r_blue, True)
         GPIO.output(r_yellow, False)
     elif side == "right":
         GPIO.output(l_blue, True)
-        GPIO.output(l_yellow, False)
+        if hand != False:
+            r_yellow_state = not r_yellow_state
+        GPIO.output(r_yellow, r_yellow_state)
         GPIO.output(r_blue, False)
         GPIO.output(r_yellow, True)
     else:
@@ -343,7 +361,8 @@ while True:
         GPIO.output(l_yellow, False)
         GPIO.output(r_blue, True)
         GPIO.output(r_yellow, False)
-
+        
+            
     #Loop over all detections and draw detection box if confidence is above minimum threshold
     # for i in range(len(scores)):
         # if ((boxes[i] > min_conf_threshold) and (boxes[i] <= 1.0)):
