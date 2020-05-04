@@ -20,6 +20,10 @@ This project is the final assignment for the ITP class `Machine Learning for Phy
 
 `Project SideMirror` is a wearable device which functions as a side mirror (like a car's) without incorporating a physical mirror, but a camera with a machine learning algorithm. Users can easily comprehend the context of what is happening at their back without turning their heads around.
 
+## The Problem?
+
+Being an (inexperienced) driver, or even just a pedestrian, I have encountered the problem of swithcing lanes when I am trying to overtake cars or people. Frankly, it could be still be as serious as a problem to pump into someone else if you are striding rapidly in a crowd, just like how you crash into other’s cars at your back of both sides in high speed.
+
 ## Application
 
 That’s when Project SideMirror comes in handy. Essentially the two cameras mounted on the two sides of your head will provide a stream of video for the ***PoseNet*** **TensorFlow Lite** machine learning algorithm to analyse for person's position and gesture, and the feedback will be returned to the user visually. The user will get notified of what is at their back by the blinking LED, in order to provide the user insight for whether it is safe to switch lane or not.
