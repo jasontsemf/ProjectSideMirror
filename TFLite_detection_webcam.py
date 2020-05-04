@@ -25,6 +25,7 @@ import importlib.util
 import math
 import RPi.GPIO as GPIO
 
+# set up LED pins and status
 l_blue = 26
 l_yellow = 19
 r_blue = 23
@@ -39,6 +40,7 @@ GPIO.setup(l_yellow, GPIO.OUT)
 GPIO.setup(r_blue, GPIO.OUT)
 GPIO.setup(r_yellow, GPIO.OUT)
 
+# defining the part names corresponding to the designated IDs
 PARTS = {
     0: 'NOSE',
     1: 'LEFT_EYE',
@@ -70,6 +72,8 @@ class Person():
         self.keypoints = self.get_keypoints(heatmap, offsets)
         self.pose = self.infer_pose(self.keypoints)
 
+    # output stride: resolution = ((InputImageSize - 1) / OutputStride) + 1
+    # 9 = ((257-1)/ x) + 1 x = 32
     def get_keypoints(self, heatmaps, offsets, output_stride=32):
         # sigmoid activation to get scores
         scores = sigmoid(heatmaps)
@@ -126,6 +130,8 @@ class Person():
                  for i, j in pairs]
         return list(filter(lambda x: x is not None, limbs))
 
+    # function defined by jasontsemf
+    # determine if the detected is on the left/right on the camera image
     def get_side(self):
         if(self.keypoints[0].get_confidence() > 0.7):
             if self.keypoints[0].point()[0] < (257/2) - 10:
@@ -136,7 +142,9 @@ class Person():
                 lr = "middle"
             return lr
         return
-
+    
+    # function defined by jasontsemf
+    # determine where hand is raised
     def is_raise_hand(self):
         if self.keypoints[0].get_confidence() > 0.7:
             if self.keypoints[9].get_confidence() > 0.6 and self.keypoints[9].point()[1] <= self.keypoints[0].point()[1]:
@@ -361,33 +369,6 @@ while True:
         GPIO.output(l_yellow, False)
         GPIO.output(r_blue, True)
         GPIO.output(r_yellow, False)
-        
-            
-    #Loop over all detections and draw detection box if confidence is above minimum threshold
-    # for i in range(len(scores)):
-        # if ((boxes[i] > min_conf_threshold) and (boxes[i] <= 1.0)):
-
-            # Get bounding box coordinates and draw box
-            # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
-            # ymin = int(max(1,(boxes[i][0] * imH)))
-            # xmin = int(max(1,(boxes[i][1] * imW)))
-            # ymax = int(min(imH,(boxes[i][2] * imH)))
-            # xmax = int(min(imW,(boxes[i][3] * imW)))
-            #cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
-            # print(ymin, xmin, ymax, xmax)
-            # Draw label
-            # object_name = labels[int(classes[i])] # Look up object name from "labels" array using class index
-            # label = '%s: %d%%' % (object_name, int(scores[i]*100)) # Example: 'person: 72%'
-            # labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2) # Get font size
-            # label_ymin = max(ymin, labelSize[1] + 10) # Make sure not to draw label too close to top of window
-            # cv2.rectangle(frame, (xmin, label_ymin-labelSize[1]-10), (xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
-            # cv2.putText(frame, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
-
-    # Draw framerate in corner of frame
-    # cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
-
-    # All the results have been drawn on the frame, so it's time to display it.
-    # cv2.imshow('Person detector', frame)
 
     # Calculate framerate
     t2 = cv2.getTickCount()
