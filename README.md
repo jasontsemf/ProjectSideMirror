@@ -2,10 +2,12 @@
 
 > Get to know what's happening behind you without turning your head around, with Project SideMirror.
 
-![Project SideMirror Front](README/projectsidemirror_front.png)
+## Looks like Prototype
+
+![Project SideMirror Front](README/lookslike_front.jpg)
 Raspberry Pi Zero W on the side of a pair of glasses
 
-![Project SideMirror Rear](README/projectsidemirror_back.png)
+![Project SideMirror Rear](README/lookslike_rear.jpg)
 RGB leds on the corner of each side the glasses, behind the lenses, Camera pointing backward/outward
 
 ## Demo
@@ -24,9 +26,13 @@ This project is the final assignment for the ITP class `Machine Learning for Phy
 
 Being an (inexperienced) driver, or even just a pedestrian, I have encountered the problem of swithcing lanes when I am trying to overtake cars or people. Frankly, it could be still be as serious as a problem to pump into someone else if you are striding rapidly in a crowd, just like how you crash into other’s cars at your back of both sides in high speed.
 
+## Visual Inspiration
+
+Pinup on [Are.na](https://www.are.na/jason-tse/project-sidemirror)
+
 ## Application
 
-That’s when Project SideMirror comes in handy. Essentially the two cameras mounted on the two sides of your head will provide a stream of video for the ***PoseNet*** **TensorFlow Lite** machine learning algorithm to analyse for person's position and gesture, and the feedback will be returned to the user visually. The user will get notified of what is at their back by the blinking LED, in order to provide the user insight for whether it is safe to switch lane or not.
+That’s when Project SideMirror comes in handy. Essentially the two cameras mounted on the two sides of your head will provide a stream of video for the [***PoseNet*** **TensorFlow Lite**](https://www.tensorflow.org/lite/models/pose_estimation/overview) machine learning algorithm to analyse for person's position and gesture, and the feedback will be returned to the user visually. The user will get notified of what is at their back by the blinking LED, in order to provide the user insight for whether it is safe to switch lane or not.
 
 In particular, A blue light signals a `safe`, where a yellow light signals a `alert`. In addition, a blinking yellow light indicates a person is raising hand.
 
@@ -251,3 +257,13 @@ class Person():
         GPIO.output(r_blue, True)
         GPIO.output(r_yellow, False)
 ```
+
+## Next Step(s)?
+
+* Make it portable
+  * [3.7V Li-Po battery](https://www.adafruit.com/product/1578)
+  * [PowerBoost 1000](https://www.adafruit.com/product/2465)
+* custom camera mount for the glasses' arm
+* real RGB LEDs
+* speed
+  * Google Coral
