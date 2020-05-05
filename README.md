@@ -10,6 +10,9 @@ Raspberry Pi Zero W on the side of a pair of glasses
 ![Project SideMirror Rear](README/lookslike_rear.jpg)
 RGB leds on the corner of each side the glasses, behind the lenses, Camera pointing backward/outward
 
+![PiCamera Zero](REAMDE/../README/picamera_zero.jpg)
+Sleek and flexible camera module for the Pi Zero/Zero W
+
 ## Demo
 
 [![Project SideMirror Demo](http://img.youtube.com/vi/FN6Ix4j6pyA/0.jpg)](http://www.youtube.com/watch?v=FN6Ix4j6pyA "Project SideMirror Demo")
