@@ -19,7 +19,7 @@ Sleek and flexible camera module for the Pi Zero/Zero W
 
 ## Intro
 
-This project is the final assignment for the ITP class `Machine Learning for Physical Computing
+This project is the final assignment for the ITP class `Machine Learning for Physical Computing`
 
 ## Project Abstract
 
