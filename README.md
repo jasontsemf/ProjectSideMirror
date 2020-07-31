@@ -1,6 +1,8 @@
 # Project Side Mirror
 
-> Get to know what's happening behind you without turning your head around, with Project SideMirror.
+```
+Get to know what's happening behind you without turning your head around, with Project SideMirror.
+```
 
 ## Looks like Prototype
 
